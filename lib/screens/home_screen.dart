@@ -4,6 +4,7 @@ import 'package:asdl/screens/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'checkout_screen.dart';
 
 class homePage extends StatefulWidget {
 
@@ -21,6 +22,7 @@ class _homePageState extends State<homePage> {
   FirebaseDatabase.instance.reference().child("upcomingmovies");
   List<Map<dynamic, dynamic>> listsupcoming = [];
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,27 +37,30 @@ class _homePageState extends State<homePage> {
             ),
           ),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.notifications_none,
-                color: Colors.black,
-                size: 35,
-              ),
-              // onPressed: () {
-              //   // do something
-              // },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.local_grocery_store,
-                color: Colors.black,
-                size: 35,
-              ),
+//            IconButton(
+//              icon: Icon(
+//                Icons.notifications_none,
+//                color: Colors.black,
+//                size: 35,
+//              ),
+//              // onPressed: () {
+//              //   // do something
+//              // },
+//            ),
+            Padding(
+              padding: const EdgeInsets.only(right:8.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.black,
+                  size: 35,
+                ),
 //               onPressed: _signOut,
-              onPressed: () {
-                signOutGoogle();
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return loginScreen();}), ModalRoute.withName('/'));
-              },
+                onPressed: () {
+                  signOutGoogle();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return loginScreen();}), ModalRoute.withName('/'));
+                },
+              ),
             ),
           ],
           backgroundColor: Colors.orange[400],
@@ -73,7 +78,7 @@ class _homePageState extends State<homePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top:18.0,left: 28),
+                  padding: const EdgeInsets.only(top:28.0,left: 28),
                   child: Row(
                   children: <Widget>[
                     Text(
@@ -138,19 +143,31 @@ class _homePageState extends State<homePage> {
                                                 SizedBox(height: 10),
                                                 Text("Language : " + lists[index]['type']),
                                                 SizedBox(height: 10),
-                                                FlatButton(
-                                                  color: Colors.blueAccent,
-                                                  onPressed: null,
-                                                  child: Text('BUY NOW', style: TextStyle(
-                                                      color: Colors.blue
-                                                  )
-                                                  ),
-                                                  textColor: Colors.white,
-                                                  shape: RoundedRectangleBorder(side: BorderSide(
-                                                      color: Colors.blue,
-                                                      width: 1,
-                                                      style: BorderStyle.solid
-                                                  ), borderRadius: BorderRadius.circular(50)),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    FlatButton(
+                                                      color: Colors.blueAccent,
+                                                      onPressed: () {
+                                                        print("click");
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => CheckoutScreen(amount: '25000',),),
+                                                        );
+                                                      },
+                                                      child: Text('BUY NOW', style: TextStyle(
+                                                          color: Colors.white
+                                                      )
+                                                      ),
+                                                      textColor: Colors.white,
+                                                      shape: RoundedRectangleBorder(side: BorderSide(
+                                                          color: Colors.blue,
+                                                          width: 1,
+                                                          style: BorderStyle.solid
+                                                      ), borderRadius: BorderRadius.circular(50)),
+                                                    ),
+                                                    Text("Amount: ₹${lists[index]["price"]}")
+                                                  ],
                                                 )
                                               ],
                                             ),
@@ -185,7 +202,7 @@ class _homePageState extends State<homePage> {
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-                      SizedBox(width: 152),
+                      SizedBox(width: 202),
                       Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black,

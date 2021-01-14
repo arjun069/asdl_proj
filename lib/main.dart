@@ -1,3 +1,4 @@
+import 'package:asdl/screens/checkout_screen.dart';
 import 'package:asdl/screens/home_screen.dart';
 import 'package:asdl/screens/landing_page.dart';
 import 'package:asdl/screens/login.dart';
@@ -16,11 +17,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ASDL',
       debugShowCheckedModeBanner: false,
-      initialRoute: homePage.id,
+      initialRoute: loginScreen.id,
       routes: {
         homePage.id:(context) => homePage(),
         loginScreen.id:(context) => loginScreen(onSignIn: null,),
         landingPage.id:(context) => landingPage(),
+        CheckoutScreen.id:(context) => CheckoutScreen(),
 //        onBoardingMobile.id:(context) => onBoardingMobile(),
       },
     );
